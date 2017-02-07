@@ -1,9 +1,9 @@
-/*************************************************** 
+/***************************************************
   This library is for the I2C-Portexpander MCP23017
   In this library the MCP23017:
   - Operate in Byte mode (not in Sequential mode (IOCON.SEQOP)
   - (Byte mode with IOCON.BANK = 0
-     => ( address  pointer toggle between associated A/B register pairs)
+	 => ( address  pointer toggle between associated A/B register pairs)
 		Address			Address			Access to:		Define
 	IOCON.BANK = 1	IOCON.BANK = 0
 		00h				00h				IODIRA			MCP_IODIRA
@@ -33,51 +33,44 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include <inttypes.h>
-#include "../I2C/I2C.h"
-#ifndef MCP23017_H_
-#define MCP23017_H_
+#ifndef _MCP23017_H_
+#define _MCP23017_H_
 
-// Don't forget the Wire library
+#include <Arduino.h>
+#include <Wire.h>
+
 class MCP23017 {
 public:
-  //MCP23017();
-  void begin(void);
-  void begin(uint8_t addr);
+	uint8_t begin();
+	uint8_t begin(uint8_t addr);
 
-  uint16_t readRegister (uint8_t reg);
-  uint8_t  writeRegister(uint8_t reg, uint16_t value);
-  
-  void setPinDirOUT(uint16_t pin);
-  void setPinDirIN(uint16_t pin);
-  uint16_t getPinMode();
+	uint16_t readRegisters(uint8_t reg);
+	uint8_t  writeRegisters(uint8_t reg, uint16_t value);
 
-  void setPullUp(uint16_t pin);
-  void unsetPullUp(uint16_t pin);
-  uint16_t getPullUp();
-  uint16_t setPullUp(uint16_t pin, uint8_t setUnset);
-  
-  uint16_t setPolarity(uint16_t pin, uint8_t setUnset);
-  uint16_t getPolarity();
-  
-  void digitalWrite(uint16_t pin, uint8_t setUnset);
-  uint16_t digitalRead();
+	uint16_t getPinModes();
+	uint8_t setPinsInput(uint16_t pins);
+	uint8_t setPinsOutput(uint16_t pins);
 
+	uint16_t getPullUp();
+	uint16_t setPullUp(uint8_t pin, boolean enable);
 
-  uint8_t  writeGPIOS(uint16_t);
-  uint16_t readGPIOS();
+	uint16_t getPolarity();
+	uint16_t setPolarity(uint8_t pin, boolean invert);
 
-  void writeOLATS(uint16_t);
-  uint16_t readOLATS();
+	uint16_t readGPIO();
+	uint8_t  writeGPIO(uint16_t value);
 
- private:
-  uint8_t i2cDeviceAddr;
-  uint8_t ioDirReg(uint8_t pin);
+	// Arduino friendly methods
+	void pinMode(uint8_t pin, uint8_t mode);
 
+	uint8_t digitalRead(uint8_t pin);
+	void digitalWrite(uint8_t pin, uint8_t value);
+private:
+	uint8_t addr;
 };
 
-#define MCP23017_BASEADDRESS (uint8_t)0x20
-#define MCP23017_ADDRESS_MAX (uint8_t)0x07
+#define MCP23017_BASEADDRESS ((uint8_t)0x20u)
+#define MCP23017_ADDRESS_MAX ((uint8_t)0x07u)
 
 //REGISTER ADRESSES with ICON.BANK = 0
 #define	MCP_IODIRA		0x00
@@ -109,42 +102,5 @@ public:
 
 #define MCP_ERROR		0x1B //Register not in use
 
-#define MCP_PIN_1		0x0001
-#define MCP_PIN_2		0x0002
-#define MCP_PIN_3		0x0003
-#define MCP_PIN_4		0x0008
-#define MCP_PIN_5		0x0010
-#define MCP_PIN_6		0x0020
-#define MCP_PIN_7		0x0030
-#define MCP_PIN_8		0x0080
-#define MCP_PIN_9		0x0100
-#define MCP_PIN_10		0x0200
-#define MCP_PIN_11		0x0400
-#define MCP_PIN_12		0x0800
-#define MCP_PIN_13		0x1000
-#define MCP_PIN_14		0x2000
-#define MCP_PIN_15		0x4000
-#define MCP_PIN_16		0x8000
-
-#define MCP_GPA_0		0x0001
-#define MCP_GPA_1		0x0002
-#define MCP_GPA_2		0x0004
-#define MCP_GPA_3		0x0008
-#define MCP_GPA_4		0x0010
-#define MCP_GPA_5		0x0020
-#define MCP_GPA_6		0x0040
-#define MCP_GPA_7		0x0080
-#define MCP_GPB_0		0x0100
-#define MCP_GPB_1		0x0200
-#define MCP_GPB_2		0x0400
-#define MCP_GPB_3		0x0800
-#define MCP_GPB_4		0x1000
-#define MCP_GPB_5		0x2000
-#define MCP_GPB_6		0x4000
-#define MCP_GPB_7		0x8000
-
-#define MCP_SET			0x01
-#define MCP_UNSET		0x00
-
-extern MCP23017 mcp;
+#define MCP_PIN_COUNT   16
 #endif

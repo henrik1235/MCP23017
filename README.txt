@@ -1,1 +1,1 @@
-This is a library for the MCP23017 I2c Port Expander
+Arduino library for the MCP23017 I2C port expander.
