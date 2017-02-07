@@ -44,9 +44,6 @@ public:
 	uint8_t begin();
 	uint8_t begin(uint8_t addr);
 
-	uint16_t readRegisters(uint8_t reg);
-	uint8_t  writeRegisters(uint8_t reg, uint16_t value);
-
 	uint16_t getPinModes();
 	uint8_t setPinsInput(uint16_t pins);
 	uint8_t setPinsOutput(uint16_t pins);
@@ -67,6 +64,9 @@ public:
 	void digitalWrite(uint8_t pin, uint8_t value);
 private:
 	uint8_t addr;
+
+	uint16_t readRegisters(uint8_t reg);
+	uint8_t  writeRegisters(uint8_t reg, uint16_t value);
 };
 
 #define MCP23017_BASEADDRESS ((uint8_t)0x20u)
