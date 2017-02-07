@@ -1,0 +1,16 @@
+{
+  "name": "MCP23017",
+  "keywords": "mcp23017, i2cdevlib, i2c",
+  "description": "Arduino library for the MCP23017 I2C port expander",
+
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/henrik1235/MCP23017.git"
+  },
+  "dependencies":
+  {
+    "frameworks": "arduino"
+  },
+  "frameworks": "arduino"
+}
