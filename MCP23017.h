@@ -1,7 +1,7 @@
-/***************************************************
-  This library is for the I2C-Portexpander MCP23017
-  In this library the MCP23017:
-  - Operate in Byte mode (not in Sequential mode (IOCON.SEQOP)
+/****************************************************
+  This library is for the I2C Port Expander MCP23017.
+  With this library the MCP23017
+  - Operates in byte mode (not in Sequential mode (IOCON.SEQOP)
   - (Byte mode with IOCON.BANK = 0
 	 => ( address  pointer toggle between associated A/B register pairs)
 		Address			Address			Access to:		Define
