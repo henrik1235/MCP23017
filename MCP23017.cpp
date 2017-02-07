@@ -107,9 +107,8 @@ uint8_t MCP23017::setPinsOutput(uint16_t pins) {
 }
 
 // INPUT POLARITY REGISTER
-uint16_t MCP23017::getPolarity() {
-	// read GPIOA and GPIOB in 16Bit Mode
-	return readRegisters(MCP_IPOLA);
+boolean MCP23017::getPolarity(uint8_t pin) {
+	return (readRegisters(MCP_IPOLA) & BIT(pin) != 0);
 }
 
 uint16_t MCP23017::setPolarity(uint8_t pin, boolean invert) {
@@ -208,14 +207,14 @@ uint16_t MCP23017::setPolarity(uint8_t pin, boolean invert) {
 
 
 //PULL-UP RESISTOR CONFIGURATION REGISTER
-uint16_t MCP23017::getPullUp() {
+boolean MCP23017::getPullUp(uint8_t pin) {
 	/************************************************************/
 	/* The GPPU register controls the pull-up resistors for the */
 	/* port pins. If a bit is set and the corresponding pin is  */
 	/* configured as an input, the corresponding port pin is    */
 	/* internally pulled up with a 100 kOhm resistor.           */
 	/************************************************************/
-	return readRegisters(MCP_GPPUA);
+	return (readRegisters(MCP_GPPUA) & BIT(pin)) != 0;
 }
 
 /********************************************************************/

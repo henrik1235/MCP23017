@@ -48,10 +48,10 @@ public:
 	uint8_t setPinsInput(uint16_t pins);
 	uint8_t setPinsOutput(uint16_t pins);
 
-	uint16_t getPullUp();
+	boolean getPullUp(uint8_t pin);
 	uint16_t setPullUp(uint8_t pin, boolean enable);
 
-	uint16_t getPolarity();
+	boolean getPolarity(uint8_t pin);
 	uint16_t setPolarity(uint8_t pin, boolean invert);
 
 	uint16_t readGPIO();
