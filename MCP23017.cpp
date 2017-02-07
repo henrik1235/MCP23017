@@ -1,38 +1,3 @@
-/**************************************************************************
-  This library is for the I2C-Portexpander MCP23017
-  In this library the MCP23017:
-  - Operate in Byte mode (not in Sequential mode (IOCON.SEQOP)
-  - (Byte mode with IOCON.BANK = 0
-	 => ( address  pointer do toggle between associated A/B register pairs)
-		Address			Address			Access to:		Define
-	IOCON.BANK = 1	IOCON.BANK = 0
-		00h				00h				IODIRA			MCP_IODIRA
-		10h				01h				IODIRB			MCP_IODIRB
-		01h				02h				IPOLA			MCP_IPOLA
-		11h				03h				IPOLB			MCP_IPOLB
-		02h				04h				GPINTENA		MCP_GPINTENA
-		12h				05h				GPINTENB		MCP_GPINTENB
-		03h				06h				DEFVALA			MCP_DEFVALA
-		13h				07h				DEFVALB			MCP_DEFVALB
-		04h				08h				INTCONA			MCP_INTCONA
-		14h				09h				INTCONB			MCP_INTCONB
-		05h				0Ah				IOCON			MCP_IOCON
-		15h				0Bh				IOCON			MCP_IOCON
-		06h				0Ch				GPPUA			MCP_GPPUA
-		16h				0Dh				GPPUB			MCP_GPPUB
-		07h				0Eh				INTFA			MCP_INTFA
-		17h				0Fh				INTFB			MCP_INTFB
-		08h				10h				INTCAPA			MCP_INTCAPA
-		18h				11h				INTCAPB			MCP_INTCAPB
-		09h				12h				GPIOA			MCP_GPIOA
-		19h				13h				GPIOB			MCP_GPIOB
-		0Ah				14h				OLATA			MCP_OLATA
-		1Ah				15h				OLATB			MCP_OLATB
-	this library read all Data as values in 16 bit HighByte PortB, LowByte PortA
-  Author Rainer Wieland
-  BSD license, all text above must be included in any redistribution
-**************************************************************************/
-
 #include "MCP23017.h"
 
 uint8_t MCP23017::begin() {

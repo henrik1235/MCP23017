@@ -1,9 +1,11 @@
-/****************************************************
-  This library is for the I2C Port Expander MCP23017.
-  With this library the MCP23017
-  - Operates in byte mode (not in Sequential mode (IOCON.SEQOP)
-  - (Byte mode with IOCON.BANK = 0
-	 => ( address  pointer toggle between associated A/B register pairs)
+/**************************************************************************
+  This Arduino library is for the I2C port expander MCP23017.
+  
+  The library for the MCP23017 works as follows:
+  - Operates in byte mode (not in sequential mode (IOCON.SEQOP)
+  - with IOCON.BANK = 0 
+    => (address pointer toggles between associated A/B register pairs)
+
 		Address			Address			Access to:		Define
 	IOCON.BANK = 1	IOCON.BANK = 0
 		00h				00h				IODIRA			MCP_IODIRA
@@ -16,8 +18,8 @@
 		13h				07h				DEFVALB			MCP_DEFVALB
 		04h				08h				INTCONA			MCP_INTCONA
 		14h				09h				INTCONB			MCP_INTCONB
-		05h				0Ah				IOCONA			MCP_IOCONA
-		15h				0Bh				IOCONA			MCP_IOCONA
+		05h				0Ah				IOCON			MCP_IOCON
+		15h				0Bh				IOCON			MCP_IOCON
 		06h				0Ch				GPPUA			MCP_GPPUA
 		16h				0Dh				GPPUB			MCP_GPPUB
 		07h				0Eh				INTFA			MCP_INTFA
@@ -28,10 +30,15 @@
 		19h				13h				GPIOB			MCP_GPIOB
 		0Ah				14h				OLATA			MCP_OLATA
 		1Ah				15h				OLATB			MCP_OLATB
-
+		
+	This library reads all data as values in 16 bit mode. (HighByte PortB, LowByte PortA)
+	
   Author Rainer Wieland
+  Modifications by Henrik Kunzelmann (2017)
+  
   BSD license, all text above must be included in any redistribution
- ****************************************************/
+**************************************************************************/
+
 
 #ifndef _MCP23017_H_
 #define _MCP23017_H_
@@ -100,7 +107,7 @@ private:
 #define MCP_OLATA		0x14
 #define	MCP_OLATB		0x15
 
-#define MCP_ERROR		0x1B //Register not in use
+#define MCP_ERROR		0x1B // Register not in use
 
 #define MCP_PIN_COUNT   16
 #endif
