@@ -40,8 +40,8 @@
 **************************************************************************/
 
 
-#ifndef _MCP23017_H_
-#define _MCP23017_H_
+#ifndef _NewMCP23017_H_
+#define _NewMCP23017_H_
 
 #include <Arduino.h>
 #include <Wire.h>
